@@ -1,4 +1,4 @@
-package com.example.toy1.util;
+package com.example.toy1.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

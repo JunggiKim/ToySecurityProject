@@ -18,6 +18,21 @@ spring:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl  #default Naming
 
+
+
+  # header value is default response header message
+jwt:
+  secretKey: asdkl12klm3dksofjn23iun32i4fnbkjsadnfjksdafniuawefbn23kjbf2k3bwkajerfbiwfehb32f
+
+  access:
+    expiration: 3600000 # 1시간  (60분) (1000L(ms -> s) * 60L(s -> m) * 60L(m -> h))
+    header: Authorization
+
+  refresh:
+    expiration: 1209600000 #   2주  (1000L(ms -> s) * 60L(s -> m) * 60L(m -> h) * 24L(h -> 하루) * 14(2주))
+    header: Authorization-refresh
+
+
   # Oauth2 setting
 #  security:
 #    oauth2:
