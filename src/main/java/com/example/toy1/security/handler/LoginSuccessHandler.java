@@ -1,11 +1,11 @@
-package com.example.toy1.config.handler;
+package com.example.toy1.security.handler;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 
-import com.example.toy1.api.service.JwtService;
+import com.example.toy1.security.service.JwtService;
 import com.example.toy1.domain.user.repository.UserRepository;
 
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,4 +1,4 @@
-package com.example.toy1.api.service;
+package com.example.toy1.security.service;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

@@ -1,4 +1,4 @@
-package com.example.toy1.config.filter;
+package com.example.toy1.security.filter;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -17,7 +17,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-import com.example.toy1.api.service.JwtService;
+import com.example.toy1.security.service.JwtService;
 import com.example.toy1.util.PasswordUtil;
 import com.example.toy1.domain.user.UserEntity;
 import com.example.toy1.domain.user.repository.UserRepository;

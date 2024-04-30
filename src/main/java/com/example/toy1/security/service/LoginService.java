@@ -1,4 +1,4 @@
-package com.example.toy1.api.service;
+package com.example.toy1.security.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

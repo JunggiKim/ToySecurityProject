@@ -1,4 +1,4 @@
-package com.example.toy1.config.handler;
+package com.example.toy1.security.handler;
 
 
 import jakarta.servlet.http.HttpServletRequest;

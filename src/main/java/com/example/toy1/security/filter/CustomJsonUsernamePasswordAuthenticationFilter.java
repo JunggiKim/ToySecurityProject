@@ -1,4 +1,4 @@
-package com.example.toy1.config.filter;
+package com.example.toy1.security.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationServiceException;

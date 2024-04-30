@@ -3,6 +3,7 @@ package com.example.toy1.domain.user;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.example.toy1.domain.BaseTimeEntity;
 import com.example.toy1.domain.user.dto.UserSignUpDTO;
 
 import jakarta.persistence.Column;
@@ -25,7 +26,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @Table(name = "USERS")
-public class UserEntity extends BaseTimeEntity{
+public class UserEntity extends BaseTimeEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -56,7 +57,6 @@ public class UserEntity extends BaseTimeEntity{
 	}
 
 
-	@Bean
 	// 비밀번호 암호화 메소드
 	public void passwordEncode(PasswordEncoder passwordEncoder) {
 		this.password = passwordEncoder.encode(this.password);
