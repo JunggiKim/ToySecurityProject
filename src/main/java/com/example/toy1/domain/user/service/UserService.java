@@ -4,9 +4,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.toy1.domain.user.Role;
 import com.example.toy1.domain.user.UserEntity;
-import com.example.toy1.domain.user.dto.UserSignUpDTO;
+import com.example.toy1.domain.user.dto.RequestUserSignUpDTO;
+import com.example.toy1.domain.user.dto.ResponseUserSignUpDTO;
 import com.example.toy1.domain.user.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -19,23 +19,25 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public void signUp(UserSignUpDTO userSignUpDto) throws Exception {
+    public ResponseUserSignUpDTO signUp(RequestUserSignUpDTO requestUserSignUpDto) throws Exception {
 
-        signUpValuation(userSignUpDto);
+        signUpValuation(requestUserSignUpDto);
 
-        UserEntity user = UserEntity.of(userSignUpDto);
+        UserEntity user = UserEntity.of(requestUserSignUpDto);
 
         user.passwordEncode(passwordEncoder);
-        userRepository.save(user);
+
+
+        return ResponseUserSignUpDTO.of(userRepository.save(user));
     }
 
 
-    private void signUpValuation(UserSignUpDTO userSignUpDto) throws Exception {
-        if (userRepository.findByEmail(userSignUpDto.email()).isPresent()) {
+    private void signUpValuation(RequestUserSignUpDTO requestUserSignUpDto) throws Exception {
+        if (userRepository.findByEmail(requestUserSignUpDto.email()).isPresent()) {
             throw new Exception("이미 존재하는 이메일입니다.");
         }
 
-        if (userRepository.findByNickname(userSignUpDto.nickName()).isPresent()) {
+        if (userRepository.findByNickname(requestUserSignUpDto.nickName()).isPresent()) {
             throw new Exception("이미 존재하는 닉네임입니다.");
         }
     }

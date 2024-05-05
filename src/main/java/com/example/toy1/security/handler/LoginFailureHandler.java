@@ -4,16 +4,20 @@ package com.example.toy1.security.handler;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 
 import java.io.IOException;
+
 
 /**
  * JWT 로그인 실패 시 처리하는 핸들러
  * SimpleUrlAuthenticationFailureHandler를 상속받아서 구현
  */
 @Slf4j
+@Configuration
 public class LoginFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
     @Override

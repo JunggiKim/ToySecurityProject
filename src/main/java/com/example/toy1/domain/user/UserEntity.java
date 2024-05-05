@@ -1,10 +1,8 @@
 package com.example.toy1.domain.user;
-
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.example.toy1.domain.BaseTimeEntity;
-import com.example.toy1.domain.user.dto.UserSignUpDTO;
+import com.example.toy1.domain.user.dto.RequestUserSignUpDTO;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,7 +27,7 @@ import lombok.NoArgsConstructor;
 public class UserEntity extends BaseTimeEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id")
 	private Long id;
 
@@ -67,13 +65,13 @@ public class UserEntity extends BaseTimeEntity {
 	}
 
 
-    public static UserEntity of(UserSignUpDTO userSignUpDto) {
+    public static UserEntity of(RequestUserSignUpDTO requestUserSignUpDto) {
 		return UserEntity.builder()
-				.email(userSignUpDto.email())
-				.password(userSignUpDto.password())
-				.nickname(userSignUpDto.nickName())
-				.age(userSignUpDto.age())
-				.city(userSignUpDto.city())
+				.email(requestUserSignUpDto.email())
+				.password(requestUserSignUpDto.password())
+				.nickname(requestUserSignUpDto.nickName())
+				.age(requestUserSignUpDto.age())
+				.city(requestUserSignUpDto.city())
 				.role(Role.USER)
 				.build();
     }

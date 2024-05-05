@@ -1,25 +1,32 @@
 package com.example.toy1.domain.user.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.toy1.domain.user.dto.UserSignUpDTO;
-import com.example.toy1.domain.user.service.UserService;
+import com.example.toy1.domain.user.dto.RequestUserSignUpDTO;
+// import com.example.toy1.domain.user.service.UserService;
 
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
+@Builder
 public class UserController {
 
-    private final UserService userService;
+    // private final UserService userService;
 
     @PostMapping("/sign-up")
-    public String signUp(@RequestBody UserSignUpDTO userSignUpDto) throws Exception {
-        userService.signUp(userSignUpDto);
-        return "회원가입 성공";
+    public ResponseEntity signUp(@RequestBody RequestUserSignUpDTO requestUserSignUpDto) throws Exception {
+        System.out.println("요청 옴");
+
+        // return ResponseEntity.ok(userService.signUp(requestUserSignUpDto));
+
+        return ResponseEntity.ok("");
     }
 
     @GetMapping("/jwt-test")

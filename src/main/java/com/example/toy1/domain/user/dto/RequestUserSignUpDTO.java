@@ -1,10 +1,9 @@
 package com.example.toy1.domain.user.dto;
 
 import lombok.Builder;
-import lombok.Getter;
 
 @Builder
-public record UserSignUpDTO(
+public record RequestUserSignUpDTO(
 	String email ,
 	String password,
 	String nickName,

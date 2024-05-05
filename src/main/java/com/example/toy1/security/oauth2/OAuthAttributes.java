@@ -9,6 +9,7 @@ import java.util.UUID;
 
 import com.example.toy1.domain.user.Role;
 import com.example.toy1.domain.user.SocialType;
+// import com.example.toy1.domain.user.UserEntity;
 import com.example.toy1.domain.user.UserEntity;
 import com.example.toy1.security.oauth2.useinfo.KakaoOAuth2UserInfo;
 import com.example.toy1.security.oauth2.useinfo.NaverOAuth2UserInfo;
