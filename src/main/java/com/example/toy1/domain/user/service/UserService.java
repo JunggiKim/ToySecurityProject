@@ -27,18 +27,18 @@ public class UserService {
 
         user.passwordEncode(passwordEncoder);
 
-
-        return ResponseUserSignUpDTO.of(userRepository.save(user));
+        UserEntity save = userRepository.save(user);
+        return ResponseUserSignUpDTO.of(save);
     }
 
 
     private void signUpValuation(RequestUserSignUpDTO requestUserSignUpDto) throws Exception {
         if (userRepository.findByEmail(requestUserSignUpDto.email()).isPresent()) {
-            throw new Exception("이미 존재하는 이메일입니다.");
+            throw new IllegalArgumentException("이미 존재하는 이메일입니다.");
         }
 
         if (userRepository.findByNickname(requestUserSignUpDto.nickName()).isPresent()) {
-            throw new Exception("이미 존재하는 닉네임입니다.");
+            throw new IllegalArgumentException("이미 존재하는 닉네임입니다.");
         }
     }
 

@@ -31,7 +31,7 @@ import lombok.RequiredArgsConstructor;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class Config {
+public class SecurityConfig {
 
 	private final ObjectMapper objectMapper;
 
@@ -53,23 +53,29 @@ public class Config {
 			// .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			.sessionManagement(sessionManage -> sessionManage.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 			.authorizeHttpRequests(request -> request
-					.requestMatchers("/sign-up").permitAll()
-					.requestMatchers("/jwt-test").permitAll()
-					.requestMatchers("/","/css/**","/images/**","/js/**","/favicon.ico","/h2-console/**").permitAll()
-					.anyRequest().authenticated())
+				.requestMatchers("/sign-up")
+				.permitAll()
+				.requestMatchers("/jwt-test")
+				.permitAll()
+				.requestMatchers("/login/oauth2/code/naver", "/login/oauth2/code/kakao")
+				.permitAll()
+				.requestMatchers("/", "/css/**", "/images/**", "/js/**", "/favicon.ico", "/h2-console/**", "login")
+				.permitAll()
+				.anyRequest()
+				.authenticated())
+			//== 소셜 로그인 설정 ==//
+			.oauth2Login()
+			.successHandler(oAuth2LoginSuccessHandler) // 동의하고 계속하기를 눌렀을 때 Handler 설정
+			.failureHandler(oAuth2LoginFailureHandler) // 소셜 로그인 실패 시 핸들러 설정
+			.userInfoEndpoint().userService(customOAuth2UserService); // customUserService 설정
 
-                //== 소셜 로그인 설정 ==//
-                .oauth2Login()
-                .successHandler(oAuth2LoginSuccessHandler) // 동의하고 계속하기를 눌렀을 때 Handler 설정
-                .failureHandler(oAuth2LoginFailureHandler) // 소셜 로그인 실패 시 핸들러 설정
-                .userInfoEndpoint().userService(customOAuth2UserService); // customUserService 설정
+		// 원래 스프링 시큐리티 필터 순서가 LogoutFilter 이후에 로그인 필터 동작
+		// 따라서, LogoutFilter 이후에 우리가 만든 필터 동작하도록 설정
+		// 순서 : LogoutFilter -> JwtAuthenticationProcessingFilter -> CustomJsonLoginFilter
+		httpSecurity.addFilterAfter(customJsonLoginFilter(), LogoutFilter.class);
+		// httpSecurity.addFilterAfter(customJsonLoginFilter(), UsernamePasswordAuthenticationFilter.class);
 
-
-        // 원래 스프링 시큐리티 필터 순서가 LogoutFilter 이후에 로그인 필터 동작
-        // 따라서, LogoutFilter 이후에 우리가 만든 필터 동작하도록 설정
-        // 순서 : LogoutFilter -> JwtAuthenticationProcessingFilter -> CustomJsonUsernamePasswordAuthenticationFilter
-        		httpSecurity.addFilterAfter(customJsonLoginFilter(), LogoutFilter.class);
-        		httpSecurity.addFilterBefore(jwtAuthenticationProcessingFilter(), CustomJsonLoginFilter.class);
+		httpSecurity.addFilterBefore(jwtAuthenticationProcessingFilter(), CustomJsonLoginFilter.class);
 
 		return httpSecurity.build();
 	}
